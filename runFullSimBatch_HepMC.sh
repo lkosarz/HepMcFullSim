@@ -36,7 +36,7 @@ source /opt/detector/epic-main/bin/thisepic.sh
 
 ## Set geometry and events to simulate
 DETECTOR_CONFIG=epic_full
-#N_EVENTS=100
+N_EVENTS=10000000
 
 # Set seed based on date
 SEED=$(date +%N)
@@ -68,7 +68,7 @@ EICRECON_FILE=${CONDOR_DIR}/${OUT_DIR_RECO}/${2}.edm4eic.root
 #source ${LOCAL_PREFIX}/EICrecon/bin/eicrecon-this.sh
 
 
-OPTIONS="--compactFile ${DETECTOR_PATH}/${DETECTOR_CONFIG}.xml --random.seed ${SEED} --inputFiles ${INFILE} --outputFile ${DDSIM_FILE}"
+OPTIONS="--compactFile ${DETECTOR_PATH}/${DETECTOR_CONFIG}.xml --numberOfEvents ${N_EVENTS} --random.seed ${SEED} --inputFiles ${INFILE} --outputFile ${DDSIM_FILE}"
 
 echo $OPTIONS
 npsim $OPTIONS

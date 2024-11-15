@@ -1,8 +1,8 @@
 #!/bin/bash
-rm condorFull/*.log
-rm condorFull/log/*.log
-rm condorFull/stderr/*.err
-rm condorFull/stdout/*.out
-rm condorFull/outputSim/*.root
-rm condorFull/outputReco/*.root
+rm outputFull/*.log
+rm outputFull/log/*.log
+rm outputFull/stderr/*.err
+rm outputFull/stdout/*.out
+rm outputFull/outputSim/*.root
+rm outputFull/outputReco/*.root
 echo "All done."

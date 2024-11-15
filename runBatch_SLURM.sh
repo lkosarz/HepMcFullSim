@@ -1,13 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
 EICSHELL=./eic-shell
 
-CONDOR_DIR=output
+CONDOR_DIR=outputFull
 OUT_DIR=outputSim
 OUT_DIR_RECO=outputReco
 
 mkdir ${CONDOR_DIR}
 mkdir "${CONDOR_DIR}/${OUT_DIR}"
+mkdir "${CONDOR_DIR}/${OUT_DIR_RECO}"
 
 ## Pass commands to eic-shell
 ## #${EICSHELL} <<EOF
@@ -34,20 +35,28 @@ source /opt/detector/epic-main/bin/thisepic.sh
 
 ## Set geometry and events to simulate
 DETECTOR_CONFIG=epic_full
-#N_EVENTS=100
+N_EVENTS=300
 
 # Set seed based on date
 SEED=$(date +%N)
 #echo $SEED
 
-echo "head -${NHEAD} ${1} | tail -1 | tee ${LISTNAME}"
-head -${NHEAD} ${1} | tail -${3} | tee ${LISTNAME}
+ls
+ls data
 
-NHEAD=$((${1}+1))
+#NHEAD=$((${1}+1))
+NHEAD=${1}
 
-INFILE="head -${NHEAD} ${2} | tail -1"
+echo "head -${NHEAD} ${2} | tail -1"
+head -${NHEAD} ${2} | tail -1
+
+
+INFILE=`head -${NHEAD} ${2} | tail -1`
 DDSIM_FILE=${CONDOR_DIR}/${OUT_DIR}/output.edm4hep.root
 EICRECON_FILE=${CONDOR_DIR}/${OUT_DIR_RECO}/output.edm4eic.root
+
+echo "infile"
+echo ${INFILE}
 
 
 #cd EICrecon
@@ -61,12 +70,12 @@ EICRECON_FILE=${CONDOR_DIR}/${OUT_DIR_RECO}/output.edm4eic.root
 #source ${LOCAL_PREFIX}/EICrecon/bin/eicrecon-this.sh
 
 
-OPTIONS="--compactFile ${DETECTOR_PATH}/${DETECTOR_CONFIG}.xml --random.seed ${SEED} --inputFiles ${INFILE} --outputFile ${DDSIM_FILE}"
+OPTIONS="--compactFile ${DETECTOR_PATH}/${DETECTOR_CONFIG}.xml --numberOfEvents ${N_EVENTS} --random.seed ${SEED} --inputFiles ${INFILE} --outputFile ${DDSIM_FILE}"
 
 echo $OPTIONS
 npsim $OPTIONS
 
-eicrecon $DDSIM_FILE -Ppodio:output_file=${EICRECON_FILE}
+eicrecon $DDSIM_FILE -Ppodio:output_file=${EICRECON_FILE} -Pjana:nevents=${N_EVENTS}
 	
 exit
 

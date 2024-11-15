@@ -1,9 +1,9 @@
 #!/bin/bash
 
-mkdir condorFull/
-mkdir condorFull/log/
-mkdir condorFull/stderr/
-mkdir condorFull/stdout/
-mkdir condorFull/outputSim/
-mkdir condorFull/outputReco/
+mkdir outputFull/
+mkdir outputFull/log/
+mkdir outputFull/stderr/
+mkdir outputFull/stdout/
+mkdir outputFull/outputSim/
+mkdir outputFull/outputReco/
 echo "All done."
