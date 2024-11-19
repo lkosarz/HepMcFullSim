@@ -29,13 +29,13 @@ apptainer run $TMPDIR/local/lib/jug_xl-testing.sif -- ./runBatch_SLURM.sh ${SLUR
 
 ## Condor scripts
 
-Submit scripts at BNL SDCC:
+###Submit scripts at BNL SDCC:
 
 ```Sh
 condor_submit submitSim.job | tee sim.log
 ```
 
-## Selecting a specific container image version
+### Selecting a specific container image version
 
 Replace the line in condor job description file: 
 
