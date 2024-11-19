@@ -1,23 +1,38 @@
-# ePICcondorScripts
+# HepMcFullSim
 
-Basic scripts for running condor simulation and reconstruction jobs. To run do following steps.
+Basic scripts (Condor and SLURM) for running full dd4hep simulation and reconstruction with EICrecon with HepMc file input.
 
-## Prepare directories
+### Prepare directories
 
 ```Sh
-./mkdirCondor.sh
+./mkdirs.sh
 ```
 
-## Submit simulation jobs
+## SLURM scripts
+
+### Submit jobs
+
+Useful at OSC and JLab (to be tested at JLab)
+
+```Sh
+sbatch --array=1-<Njobs> submitFullSim_SLURM.sh | tee submit.log
+```
+
+### Optional container selection
+
+Download the container image first. Then specify it in the script with these 2 lines:
+
+```Sh
+srun -n $SLURM_JOB_NUM_NODES --ntasks-per-node=1 cp -r $HOME/eic/local/lib/jug_xl-testing.sif $TMPDIR/local/lib/
+apptainer run $TMPDIR/local/lib/jug_xl-testing.sif -- ./runBatch_SLURM.sh ${SLURM_ARRAY_TASK_ID} $TMPDIR/data/files.list
+```
+
+## Condor scripts
+
+Submit scripts at BNL SDCC:
 
 ```Sh
 condor_submit submitSim.job | tee sim.log
-```
-
-## Submit reconstruction jobs (remember to adjust input!)
-
-```Sh
-condor_submit submitReco.job | tee reco.log
 ```
 
 ## Selecting a specific container image version
@@ -43,4 +58,6 @@ ls /cvmfs/singularity.opensciencegrid.org/eicweb/
 ## More info
 
 [https://htcondor.readthedocs.io/en/lts/admin-manual/singularity-support.html](https://htcondor.readthedocs.io/en/lts/admin-manual/singularity-support.html)
+
+[https://www.osc.edu/supercomputing/batch-processing-at-osc/job-scripts](https://www.osc.edu/supercomputing/batch-processing-at-osc/job-scripts)
 
