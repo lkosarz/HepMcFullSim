@@ -20,7 +20,7 @@ source /opt/detector/epic-main/bin/thisepic.sh
 #source /opt/detector/setup.sh
 #source epic/install/setup.sh
 
-#source S3setup.sh
+source S3setup.sh
 
 #cd epic
 #rm -rf build
@@ -45,16 +45,21 @@ N_EVENTS=10000000
 SEED=$(date +%N)
 #echo $SEED
 
-INFILE=${1}
-DDSIM_FILE=${CONDOR_DIR}/${OUT_DIR}/${2}_${4}_${3}.edm4hep.root
-EICRECON_FILE=${CONDOR_DIR}/${OUT_DIR_RECO}/${2}_${4}_${3}.edm4eic.root
+# Split lists
+#NHEAD=$((${1}+1))
+NHEAD=${3}
 
-echo "infile:"
+echo "head -${NHEAD} ${1} | tail -1"
+head -${NHEAD} ${1} | tail -1
+
+
+INFILE=`head -${NHEAD} ${1} | tail -1`
+DDSIM_FILE=${CONDOR_DIR}/${OUT_DIR}/${2}_${5}_${4}.edm4hep.root
+EICRECON_FILE=${CONDOR_DIR}/${OUT_DIR_RECO}/${2}_${5}_${4}.edm4eic.root
+
+echo "infile"
 echo ${INFILE}
 ls ${INFILE}
-
-echo "list all:"
-ls
 
 
 #cd EICrecon

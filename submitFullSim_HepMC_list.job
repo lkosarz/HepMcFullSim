@@ -25,10 +25,10 @@ Rank		= CPU_Speed
 # Used to give jobs a directory with respect to file input and output.
 Initialdir      = /gpfs/mnt/gpfs02/eic/lkosarzew/Calorimetry/Simulations/HepMcFullSim
 
-executable              = runFullSimBatch_HepMC.sh
-arguments               = input_$(Process).hepmc3 output $(Process) $(Cluster)
+executable              = runFullSimBatch_HepMC_list.sh
+arguments               = files_HepMC.list output 1 $(Process) $(Cluster)
 
-transfer_input_files    = runFullSimBatch_HepMC.sh,data/input_$(Process).hepmc3
+transfer_input_files    = runFullSimBatch_HepMC_list.sh,S3setup.sh,data/files_HepMC.list
 should_transfer_files   = YES
 when_to_transfer_output = ON_EXIT_OR_EVICT
 transfer_output_files   = outputFull

@@ -31,8 +31,16 @@ apptainer run $TMPDIR/local/lib/jug_xl-testing.sif -- ./runBatch_SLURM.sh ${SLUR
 
 ###Submit scripts at BNL SDCC:
 
+Make sure the file paths in the file list contain this prefix:
+
 ```Sh
-condor_submit submitSim.job | tee sim.log
+s3https://dtn01.sdcc.bnl.gov:9000/
+```
+
+run to submit jobs:
+
+```Sh
+condor_submit submitFullSim_HepMC.job | tee sim.log
 ```
 
 ### Selecting a specific container image version
@@ -54,6 +62,18 @@ To list available image versions:
 ```Sh
 ls /cvmfs/singularity.opensciencegrid.org/eicweb/
 ```
+
+
+### Access S3 files
+
+Create ``S3setup.sh`` file with:
+
+```Sh
+export S3_ACCESS_KEY=<login>
+export S3_SECRET_KEY=<password>
+```
+
+And use the list version of scripts ``*_list.job``.
 
 ## More info
 
