@@ -63,6 +63,15 @@ To list available image versions:
 ls /cvmfs/singularity.opensciencegrid.org/eicweb/
 ```
 
+## Get container image for SLURM jobs
+
+Get ``.sif`` Singularity Image Format (SIF) file  from docker repository
+
+```Sh
+singularity pull docker://eicweb/eic_xl:24.11.1-stable
+```
+
+Modify scripts to point to this file
 
 ### Access S3 files
 
